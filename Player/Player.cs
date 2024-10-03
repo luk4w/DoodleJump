@@ -86,4 +86,11 @@ public partial class Player : CharacterBody2D
 		// Atualiza a velocidade do corpo
 		Velocity = velocity;
 	}
+
+	public void Die()
+	{
+		GD.Print("Player Die");
+		// GetTree().ReloadCurrentScene();
+		GetTree().CallDeferred("reload_current_scene");
+	}
 }

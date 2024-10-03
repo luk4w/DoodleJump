@@ -8,6 +8,5 @@ public partial class Platform : StaticBody2D
 
 	[Signal]
 	public delegate void DeleteObjectEventHandler();
-	
 
 }

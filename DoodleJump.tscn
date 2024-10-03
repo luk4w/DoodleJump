@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy46xfux6s7oj"]
+[gd_scene load_steps=10 format=3 uid="uid://cy46xfux6s7oj"]
 
 [ext_resource type="Script" path="res://DoodleJump.cs" id="1_30aog"]
 [ext_resource type="PackedScene" uid="uid://c35fyjlikmp6b" path="res://Player/Player.tscn" id="1_fl3ip"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ci185a86g830q" path="res://Platform/CloudPlatform.tscn" id="3_lyq35"]
 [ext_resource type="PackedScene" uid="uid://ch5cciedb5ums" path="res://Platform/SpringPlatform.tscn" id="4_gpe0s"]
 [ext_resource type="Script" path="res://Camera.cs" id="4_irs38"]
+[ext_resource type="PackedScene" uid="uid://cq0un67o43qiy" path="res://Platform/Enemy.tscn" id="5_syqct"]
 [ext_resource type="FontFile" uid="uid://e4yfiwr855ni" path="res://Assets/Fonts/Kenney Pixel.ttf" id="7_jo1ol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p71x5"]
@@ -13,7 +14,7 @@ size = Vector2(180, 20)
 
 [node name="DoodleJump" type="Node2D"]
 script = ExtResource("1_30aog")
-packedScenes = Array[PackedScene]([ExtResource("2_uyp3w"), ExtResource("3_lyq35"), ExtResource("4_gpe0s")])
+packedScenes = Array[PackedScene]([ExtResource("2_uyp3w"), ExtResource("4_gpe0s"), ExtResource("3_lyq35"), ExtResource("5_syqct")])
 
 [node name="PlatformContainer" type="Node" parent="."]
 

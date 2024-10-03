@@ -1,25 +1,25 @@
 [gd_scene load_steps=8 format=3 uid="uid://cq0un67o43qiy"]
 
-[ext_resource type="Texture2D" uid="uid://0cille4r0hek" path="res://Assets/Tiles/Characters/tile_0024.png" id="1_5hd2e"]
-[ext_resource type="Script" path="res://Platform/Enemy.cs" id="1_dcl02"]
-[ext_resource type="Texture2D" uid="uid://bgiuoj5cvu7mc" path="res://Assets/Tiles/Characters/tile_0025.png" id="2_4bhxi"]
-[ext_resource type="Texture2D" uid="uid://c0wfl1qx36ais" path="res://Assets/Tiles/Characters/tile_0026.png" id="3_4m2ap"]
+[ext_resource type="Script" path="res://Platform/Enemy.cs" id="1_pl4h5"]
+[ext_resource type="Texture2D" uid="uid://0cille4r0hek" path="res://Assets/Tiles/Characters/tile_0024.png" id="2_x7qov"]
+[ext_resource type="Texture2D" uid="uid://bgiuoj5cvu7mc" path="res://Assets/Tiles/Characters/tile_0025.png" id="3_cv2nv"]
+[ext_resource type="Texture2D" uid="uid://c0wfl1qx36ais" path="res://Assets/Tiles/Characters/tile_0026.png" id="4_bhadh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l3a4v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_5hd2e")
+"texture": ExtResource("2_x7qov")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_4bhxi")
+"texture": ExtResource("3_cv2nv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_4m2ap")
+"texture": ExtResource("4_bhadh")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_70mr0"]
@@ -28,12 +28,13 @@ size = Vector2(20, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4skd"]
 size = Vector2(20, 11)
 
-[node name="Enemy" type="StaticBody2D"]
-script = ExtResource("1_dcl02")
+[node name="Enemy" type="StaticBody2D" groups=["Platform"]]
+script = ExtResource("1_pl4h5")
+VelocityMultiplier = 0.6
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l3a4v")
-frame_progress = 0.0882066
+frame_progress = 0.188639
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -47,3 +48,5 @@ debug_color = Color(0, 1, 0, 0.419608)
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_m4skd")
 debug_color = Color(0.960784, 0, 0, 0.419608)
+
+[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyEntered"]

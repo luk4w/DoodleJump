@@ -6,7 +6,7 @@ public partial class DoodleJump : Node2D
 	private Node platformContainer;
 	private float initialPositionY;
 	private Label scoreLabel;
-	private bool lastPlatformIsCloud = false;
+	private bool lastPlatformIsHazard = false;
 	private int score = 0;
 
 	// Array de plataformas
@@ -21,7 +21,7 @@ public partial class DoodleJump : Node2D
 
 		Camera2D cam = GetNode<Camera2D>("Camera");
 		cam.Connect("ScoreUpdate", new Callable(this, nameof(ScoreUpdate)));
-		
+
 		GD.Randomize();
 		LevelGenerator(10);
 	}
@@ -30,33 +30,36 @@ public partial class DoodleJump : Node2D
 	{
 		for (int i = 0; i < amount; i++)
 		{
-			var type = GD.Randi() % packedScenes.Length;
+			var index = GD.Randi() % packedScenes.Length;
 
 			initialPositionY -= GD.RandRange(36, 54);
 			// StaticBody2D platform = packedScene.Instantiate() as StaticBody2D;
 			StaticBody2D platform = null;
-			switch (type)
+			switch (index)
 			{
 				case 0: // Platform
-
 					platform = packedScenes[0].Instantiate() as StaticBody2D;
 					break;
-				case 1: // CloudPlatform
-					if (!lastPlatformIsCloud)
+				case 1: // SpringPlatform
+					platform = packedScenes[1].Instantiate() as StaticBody2D;
+					break;
+				case 2: // CloudPlatform
+				case 3: // Enemy
+					if (!lastPlatformIsHazard)
 					{
-						platform = packedScenes[1].Instantiate() as StaticBody2D;
+						platform = packedScenes[index].Instantiate() as StaticBody2D;
 						// Conecta o sinal "DeleteObject" de Platform ao método DeleteObject
 						platform.Connect("DeleteObject", new Callable(this, nameof(DeleteObject)));
-						lastPlatformIsCloud = true;
+						lastPlatformIsHazard = true;
 					}
 					else
 					{
 						platform = packedScenes[0].Instantiate() as StaticBody2D; // Platform
-						lastPlatformIsCloud = false;
+						lastPlatformIsHazard = false;
 					}
 					break;
-				case 2: // SpringPlatform
-					platform = packedScenes[2].Instantiate() as StaticBody2D;
+				default:
+					GD.PrintErr("Platform not implemented");
 					break;
 			}
 
@@ -95,15 +98,15 @@ public partial class DoodleJump : Node2D
 		{
 			DeleteObject(body);
 		}
-		else if (body.IsInGroup("Player"))
+		else if (body is Player player)
 		{
-			GD.Print("Player morreu");
+			player.Die();
 		}
 	}
 
 	public void ScoreUpdate()
 	{
-		score ++;
+		score++;
 		scoreLabel.Text = score.ToString();
 	}
 
