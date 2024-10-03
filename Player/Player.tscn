@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c35fyjlikmp6b"]
+
+[ext_resource type="Texture2D" uid="uid://ddao45wtln0ae" path="res://Assets/Tilemap/tilemap-characters_packed.png" id="1_a570h"]
+[ext_resource type="Script" path="res://Player/Player.cs" id="1_hik1o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u422f"]
+atlas = ExtResource("1_a570h")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6no4r"]
+atlas = ExtResource("1_a570h")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qvgqo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u422f")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6no4r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blgjm"]
+size = Vector2(16, 24)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_hik1o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_qvgqo")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_blgjm")

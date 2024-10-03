@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://cy46xfux6s7oj"]
+
+[ext_resource type="Script" path="res://DoodleJump.cs" id="1_30aog"]
+[ext_resource type="PackedScene" uid="uid://c35fyjlikmp6b" path="res://Player/Player.tscn" id="1_fl3ip"]
+[ext_resource type="PackedScene" uid="uid://b5p6debc8bf5s" path="res://Platform/Platform.tscn" id="2_uyp3w"]
+[ext_resource type="PackedScene" uid="uid://ci185a86g830q" path="res://Platform/CloudPlatform.tscn" id="3_lyq35"]
+[ext_resource type="PackedScene" uid="uid://ch5cciedb5ums" path="res://Platform/SpringPlatform.tscn" id="4_gpe0s"]
+[ext_resource type="Script" path="res://Camera.cs" id="4_irs38"]
+[ext_resource type="FontFile" uid="uid://e4yfiwr855ni" path="res://Assets/Fonts/Kenney Pixel.ttf" id="7_jo1ol"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p71x5"]
+size = Vector2(180, 20)
+
+[node name="DoodleJump" type="Node2D"]
+script = ExtResource("1_30aog")
+packedScenes = Array[PackedScene]([ExtResource("2_uyp3w"), ExtResource("3_lyq35"), ExtResource("4_gpe0s")])
+
+[node name="PlatformContainer" type="Node" parent="."]
+
+[node name="Platform" parent="PlatformContainer" instance=ExtResource("2_uyp3w")]
+position = Vector2(90, 300)
+
+[node name="Player" parent="." instance=ExtResource("1_fl3ip")]
+position = Vector2(90, 160)
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(90, 160)
+script = ExtResource("4_irs38")
+player = NodePath("../Player")
+
+[node name="PlatformCleaner" type="Area2D" parent="Camera"]
+position = Vector2(0, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera/PlatformCleaner"]
+position = Vector2(0, 170)
+shape = SubResource("RectangleShape2D_p71x5")
+
+[node name="ScoreLabel" type="Label" parent="Camera"]
+offset_left = -20.0
+offset_top = -143.0
+offset_right = 20.0
+offset_bottom = -120.0
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_jo1ol")
+theme_override_font_sizes/font_size = 32
+text = "00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Camera/PlatformCleaner" to="." method="OnPlatformCleanerBodyEntered"]

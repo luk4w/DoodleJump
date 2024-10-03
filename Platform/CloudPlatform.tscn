@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci185a86g830q"]
+
+[ext_resource type="Texture2D" uid="uid://cpbafscnbl8di" path="res://Assets/Tiles/tile_0153.png" id="1_bydgm"]
+[ext_resource type="Script" path="res://Platform/CloudPlatform.cs" id="1_t0yh2"]
+[ext_resource type="Texture2D" uid="uid://bxrubt0wbgsxw" path="res://Assets/Tiles/tile_0155.png" id="2_n0u2w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igik7"]
+size = Vector2(36, 14)
+
+[node name="CloudPlatform" type="StaticBody2D" groups=["Platform"]]
+script = ExtResource("1_t0yh2")
+VelocityMultiplier = 0.6
+
+[node name="left" type="Sprite2D" parent="."]
+position = Vector2(-9, 9)
+texture = ExtResource("1_bydgm")
+
+[node name="right" type="Sprite2D" parent="."]
+position = Vector2(9, 9)
+texture = ExtResource("2_n0u2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_igik7")
+one_way_collision = true
